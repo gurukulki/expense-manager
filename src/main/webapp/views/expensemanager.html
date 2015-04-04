@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html data-ng-app="expenseManager" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta th:include="common/common :: [//header]" />
+<title>Expense Manager</title>
+<script type="text/javascript" th:src="@{/js/jquery.colorbox-min.js}"></script>
+<link rel="stylesheet" th:href="@{/themes/bootstrap/css/colorbox.css}"></link>
+
+<script th:inline="javascript">
+/*<![CDATA[*/
+    var users = [[${usersList}]];
+    console.log(users.length);
+/*]]>*/
+</script>
+</head>
+<body>
+	<div class="container">
+		<div data-ng-controller="expManagerController">
+			<h2>Expense Manager</h2>
+			<br></br>
+		</div>
+		
+		
+
+		<div th:include="common/common :: footer-common"></div>
+	</div>
+</body>
+</html>

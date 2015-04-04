@@ -1,0 +1,18 @@
+@CHARSET "ISO-8859-1";
+
+@import url('./../../bootstrap/css/bootstrap.min.css');
+
+@import url('./../../bootstrap/css/plugin/datepicker.css');
+
+.footer {
+	background-color: #1B1B1B;
+	position: fixed;
+	width: inherit;
+	font: bold;
+	bottom: 0;
+	color: #CCCCCC;
+}
+
+.footer a {
+	color: #CCCCCC;
+}
