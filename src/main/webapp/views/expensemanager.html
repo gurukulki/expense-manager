@@ -9,19 +9,94 @@
 <script th:inline="javascript">
 /*<![CDATA[*/
     var users = [[${usersList}]];
+    var expenses = [[${expenses}]];
     console.log(users.length);
 /*]]>*/
 </script>
 </head>
 <body>
-	<div class="container">
-		<div data-ng-controller="expManagerController">
+	<div class="container containercolor">
+		<div data-ng-controller="expManagerController" data-ng-init="init()">
 			<h2>Expense Manager</h2>
 			<br></br>
-		</div>
-		
-		
 
+			<div class="panel-group">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">Expense form</h4>
+					</div>
+					<div id="messages" ng-show="message">{{ message }}</div>
+					<div class="panel-body">
+
+						<form name="form" data-ng-submit="sendForm()">
+							<!-- payer -->
+							<div class="form-group clearfix">
+								<label class="col-sm-2 control-label" for="payer">Payer
+									: </label>
+								<div class="col-sm-5">
+									<select id="payer" data-ng-model="formData.userId" name="payer"
+										class="form-control">
+										<option data-ng:repeat="user in users" value="{{user.id}}">{{user.firstName}}</option>
+									</select>
+								</div>
+							</div>
+							<!-- shop -->
+							<div class="form-group clearfix">
+								<label class="col-sm-2 control-label" for="shop">Shop :</label>
+								<div class="col-sm-5">
+									<input id="shop" data-ng-model="formData.shop" name="shop"
+										class="form-control" type="text" required="required"></input>
+								</div>
+							</div>
+							<!-- amount -->
+							<div class="form-group clearfix">
+								<label class="col-sm-2 control-label" for="amount">Amount
+									:</label>
+								<div class="col-sm-5">
+									<input id="amount" data-ng-model="formData.amount"
+										name="amount" class="form-control" type="number" min="0.01"
+										step="0.01" max="2500" required="required"></input>
+								</div>
+							</div>
+							<!-- form controls-->
+							<div class="form-group">
+								<button type="submit" class="btn btn-primary">Submit!</button>
+							</div>
+						</form>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="panel-group">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">The latest 10 transactions</h4>
+					</div>
+
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Shop</th>
+								<th>Amount</th>
+								<th>Date</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr data-ng-repeat="exp in expenses">
+								<td>{{ exp.name }}</td>
+								<td>{{ exp.shop }}</td>
+								<td>{{ exp.amount }}</td>
+								<td>{{ exp.shopDate | date : "yyyy-MM-dd HH:mm:ss"
+									}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+		</div>
 		<div th:include="common/common :: footer-common"></div>
 	</div>
 </body>
