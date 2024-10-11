@@ -43,6 +43,29 @@ public class PageController
 		return view;
 	}
 
+		@RequestMapping(method =
+	{ RequestMethod.GET })
+	public String testCodeReview(ModelMap model, HttpServletRequest request, HttpServletResponse response)
+	{
+
+		String key = request.getRequestURI()
+				.substring(request.getRequestURI().lastIndexOf("/") + 1)
+				.trim();
+		if (key == null || key.length() == 0 || !viewMap.containsKey(key))
+		{
+			log.info(request.getRequestURI() + " No mapping found ");
+			return "redirect:/";
+		}
+		String view = null;
+		if (viewMap.containsKey(key))
+			view = viewMap.get(key);
+		else
+			view = key;
+		model.addAttribute("viewMapping", view);
+		log.info(request.getRequestURI() + " mapped to view " + view);
+		return view;
+	}
+
 	public Map<String, String> getViewMap()
 	{
 		return viewMap;
