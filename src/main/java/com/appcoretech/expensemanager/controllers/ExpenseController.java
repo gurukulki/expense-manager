@@ -76,4 +76,28 @@ public class ExpenseController {
 		return restResponse;
 	}
 
+		/**
+	 * saves the given expenses and refreshes the latest expenses data as well.
+	 * @param exp
+	 * @return
+	 */
+	@RequestMapping(value = "/getexpense", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	public @ResponseBody RestResponse getExpense(@RequestBody Expenses exp) {
+		LOG.info("In save expense controller method");
+		List<Expenses> expenses = null;
+		try {
+			boolean res = dataService.saveExpense(exp);
+			if (res) {
+				expenses = dataService.getLatestExpenses();
+			}
+			LOG.info("returning the home page with the users details.");
+		} catch (Exception e) {
+			LOG.error("Failed to get the home page with the users details", e);
+		}
+		RestResponse restResponse = new RestResponse();
+		restResponse.setResponseCode(ResponseCode.SUCCESS);
+		restResponse.setItems(expenses);
+		LOG.info("Returning Selected VMS device information from the database");
+		return restResponse;
+	}
 }
